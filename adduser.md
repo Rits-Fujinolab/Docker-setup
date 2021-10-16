@@ -27,6 +27,8 @@ sudo newgrp docker
 # 正常にバージョンが表示されればOK
 # permission deniedになる場合，再起動を試す．
 docker --version
+# GPUを認識できるか確認
+docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 ```
 
 ## SSH接続でサーバにログインできるようにする (公開鍵をサーバに登録する)
