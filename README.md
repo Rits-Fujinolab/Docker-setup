@@ -1,9 +1,11 @@
 # Docker環境を立ち上げる
 
-## Windows
-- [Docker for Windowsのインストール](./windows.md)
-- [VSCodeでリモートサーバのDockerコンテナに接続する](./vscode.md)
+## サーバ管理者向け
+- [Ubuntuサーバの立ち上げからDocker環境の構築まで](./server.md)
+- [ユーザの作成からDockerの設定まで](./adduser.md)
 
-## Linux (Ubuntu)
-- [Ubuntuサーバの立ち上げ](./server.md)
-- [Ubuntu上にDocker環境を構築する](./linux_docker.md)
+## ユーザ向け
+- [Docker for Windowsのインストール](./windows.md)
+- [WSL上にDockerをインストール](./wsl.md)
+- [VSCodeでリモートサーバのDockerコンテナに接続する](./vscode_server.md)
+- [VSCodeでWSLのDockerコンテナに接続する](./vscode_wsl.md)

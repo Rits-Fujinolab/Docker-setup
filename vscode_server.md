@@ -16,7 +16,7 @@
 	IdentitiesOnly yes
 	```	
 
-    `IdentityFile`，`ItentitiesOnly`は[公開鍵の設定](./server.md)を行った場合のみ．
+    `IdentityFile`，`ItentitiesOnly`は[公開鍵の設定](./adduser.md)を行った場合のみ．
 
 ## Dockerの設定をする
 
@@ -29,25 +29,12 @@
 
 - Remote PC上でDockerコマンドがSudoつけなくても動くようにする
 
-	[公式の手順](https://docs.docker.com/engine/install/linux-postinstall/)を参照して作業すること．
+確認する
+```
+$ docker run hello-world
+```
 
-	以下，作業の例
-	```
-	$ sudo groupadd docker
-	$ sudo usermod -aG docker $USER
-	```
-
-	一度ログアウトして，ログインし直してから実行
-	```
-	$ newgrp docker
-	```
-
-	確認する
-	```
-	$ docker run hello-world
-	```
-
-	もし，これでもSudoユーザが必要と言われたら，PCを再起動する
+もし，これでもSudoユーザが必要と言われたら，PCを再起動する
 
 
 - これで，Remote-SSHでログインした状態でDocker拡張機能が使えるようになった．
