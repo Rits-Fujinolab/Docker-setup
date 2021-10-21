@@ -36,12 +36,13 @@ IPv4アドレスを設定する
 
 #### 基本ソフトウェアのインストール
 ターミナルを起動(`Ctrl+Alt+T`)し，以下のコマンドを入力  
-テキストエディタとしてvimをインストールしているが，使えない場合はNano等を使用する．  
+テキストエディタとしてgeditをインストールしている．  
+geditはGUIで起動するので，基本的には直接モニタを接続して使用する，  
 
 ```bash
 sudo apt update
 sudo apt upgrade
-sudo apt install vim ntp ssh ibus-mozc
+sudo apt install gedit ntp ssh ibus-mozc
 # 再起動する
 sudo reboot
 ```
@@ -64,7 +65,7 @@ NTP(Network Time Protocol)サーバ: 時刻同期の設定
 コンフィグファイルを編集する．  
 
 ```bash
-sudo vim /etc/ntp.conf
+sudo gedit /etc/ntp.conf
 ```
 
 以下のように書き換え  
