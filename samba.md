@@ -45,7 +45,7 @@ read only = no
 sudo systemctl restart smbd nmbd
 ```
 
-### Windows explorer からのアクセス方法
+## Windows explorer からのアクセス方法
 Windows explorer の Address bar に以下を入力し，設定したSamba userでログインすることでアクセスが可能となる．
 ```bash
 \\{linux serverのip address}\{任意の文字列(上の場合だとhogehoge)}
