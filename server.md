@@ -1,38 +1,95 @@
 # GPU搭載リモート共用サーバ(Ubuntu)の立ち上げ
 
+この資料はUbuntu22.04 LTSを用いて説明する．  
+異なるバージョンを対象とする場合は適宜読み替えること．
+
 ## Ubuntuのインストール
 
-### USBからインストール
-インストーラを書き込んだUSBをPCに挿し，画面の表示に従ってインストールを進める．
+### 1. USBインストーラを作成する
 
-#### 注意事項
-- 言語設定は`English`にする．  
-(標準のフォルダ構成が日本語だとめんどくさいことになるため．)
-- keyboard layoutは`Japanese`の`OADG 109A`を選択．
+[Ubuntu公式サイト](https://jp.ubuntu.com/download)からISOファイルをダウンロードする．  
+[Rufus](https://rufus.ie/ja/)を使用してBootable USBを作成する．
 
+注意：Ubuntuで検索すると日本語Remix等がヒットするが，これは使用しないこと．必ず公式からダウンロードすること．
 
-### インストール後の(最小限の)初期設定
+### 2. USBから起動する
+
+ASUS製マザーボードを例に説明する．  
+ここの操作はメーカーによって(またはメーカー内でも製品によって)大きく異なるので，必要に応じて読み替えること．
+
+まず，PC起動時に表示されるメーカーロゴの画面下部に表示される指示に従い，UEFI設定画面に移動する.  
+![](imgs/boot1.png)
+
+Boot Menu(各社表記ゆれあり)よりUEFIモードで用意したBootable USBから起動する．  
+つまり，以下の図では`UEFI: Sony Storage Media PMAP, Partition 1 (14808MB)`を選択する．  
+![](imgs/boot2.png)
+
+### 3. Ubuntuをインストールする
+
+上記の手順でUSBからUbuntuを起動すると，下のような画面が表示されるので`Try or Install Ubuntu`を選択する．  
+![](imgs/install1.png)
+
+言語として`English`を使用し，`Install Ubuntu`する．
+注意：日本語に設定しないこと！  
+![](imgs/install2.png)
+
+Keyboard layoutは左を`Japanese`，右を`Japanese-Japanese (OADG 109A)`に設定する．(一般的な日本語キーボードを用いる場合)  
+![](imgs/install3.png)
+
+Updates and other softwareは`Noraml installation`を選択する．  
+`install third-party software for praphics and Wi-Fi hardware and additional media formats`は選択しない．  
+![](imgs/install4.png)
+
+Installation typeでは`Something else`を選択する．  
+下の図は元々UbuntuがインストールされていたPCに対して再インストールする場合に表示される画面であるが，他の場合でも同様にする．  
+![](imgs/install5.png)
+
+PC内にあるSSDやHDDの数・種類に応じて変わるが，このような画面が表示される．  
+![](imgs/install8.png)
+
+元から何かしらがインストールされている場合は下の図のようになる．  
+![](imgs/install6.png)
+
+この場合，各領域を選択，右クリックして`Delete`を選択することで削除していく．
+元のデータは消えるため注意すること．  
+![](imgs/install7.png)
+
+インストール先ディスク(通常は`/dev/sda`)の`free space`と書かれている部分を右クリックし，`Add`をクリックする．
+Mount pointとして`/`を選択し，OKを押して元のウィンドウに戻った後，`Install Now`をクリックして次に進む．  
+![](imgs/install9.png)
+
+Where are you?では`Tokyo`を選択する．  
+![](imgs/install10.png)
+
+Who are you?では管理者ユーザを作成する．  
+管理者ユーザ名とパスワードは管理者か教員に確認すること．  
+研究室の運用として，Ubuntuサーバには全て同じユーザを管理者ユーザとして追加することにしている．  
+![](imgs/install11.png)
+
+以上でインストール手順は完了である．
+
+### インストール後の初期設定
 
 #### ネットワーク接続
 IPアドレスを指定する．  
-[Fujinowiki](172.24.162.200)を参照して，空いているIPアドレスから適当なものを選択する．  
-サーバ用アドレス空間(`172.24.162.200-214`)を優先して割り当てること．  
-割当て後は[Fujinowiki](172.24.162.200)を必ず更新すること！
+どのIPを使用するかは管理者か教員の指示を仰ぐこと．
 
-Settingsを開く
+Settingsを開く  
 ![](imgs/network1.png)
 
-Networkを開く
+Networkを開く  
 ![](imgs/network2.png)
 
-IPv4アドレスを設定する
+IPv4アドレスを設定する  
 ![](imgs/network3.png)
 
 - 記入例
-	- IP: 172.24.162.xxx
-	- Mask: 255.255.255.128
-	- Default GW: 172.24.162.254
-	- DNS: 172.24.32.1, 172.26.100.1
+	- IP: 172.xxx.xxx.xxx
+	- Mask: 255.255.xxx.xxx
+	- Default GW: 172.xxx.xxx.xxx
+	- DNS: 172.xxx.xxx.xxx, 172.xxx.xxx.xxx
+
+ネットマスクやデフォルトゲートウェイ，DNSサーバは研究室や建物ごとに変わる場合があるので要確認．
 
 #### 基本ソフトウェアのインストール
 ターミナルを起動(`Ctrl+Alt+T`)し，以下のコマンドを入力  
@@ -95,6 +152,8 @@ ntpq -p
 
 ## Dockerの設定
 
+Dockerの設定手順は半年や1年経つとコマンド類が変わってたりするので，必ず1次情報を参照しながら行うこと！
+
 ### Docker/Docker-compose/Nvidia-container-toolkitのインストール
 
 [Nvidia container toolkitのドキュメント](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)に従ってインストールを進める．  
@@ -143,7 +202,7 @@ ubuntu-drivers devices
 # 例: 
 # nvidia-driver-470 - distro non-free recommended
 # recommendedなドライバをaptからインストールする
-sudo apt install nvidia-driver-470
+sudo apt install nvidia-driver-XXX
 # 再起動する
 sudo reboot
 # インストールされているか確認する．
@@ -155,7 +214,7 @@ nvidia-smi
 
 [公式の手順](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)に従ってインストールを進める
 
-手順例  
+手順例 (バージョンによって変わることがあるので必ず公式手順を確認してから実行すること！)  
 ```bash
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 	&& curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
