@@ -29,12 +29,11 @@ sudo smbpasswd -a USERNAME
 ```
 ### smb.conf の設定
 /etc/samba/smb.comfの行末に追記する．   
-[hogehoge] は任意，[share_{linux_username}]にしておくと無難です．
 pathには共有したい場所を記入してください．   
-大体の人は /home/{linux_username}だと思います．(echo $HOME で確認できる)
+大体の人は /home/<Linuxのユーザ名>だと思います．(echo $HOME で確認できる)
 ```
-[hogehoge]
-path = /home/name
+[share_<Linuxのユーザ名>]
+path = /home/<Linuxのユーザ名>
 writable = yes
 printable = no
 browseable = no
@@ -48,5 +47,5 @@ sudo systemctl restart smbd nmbd
 ## Windows explorer からのアクセス方法
 Windows explorer の Address bar に以下を入力し，設定したSamba userでログインすることでアクセスが可能となる．
 ```bash
-\\{linux serverのip address}\{任意の文字列(上の場合だとhogehoge)}
+\\{linux serverのIPアドレス}\share_<Linuxのユーザ名>
 ```
