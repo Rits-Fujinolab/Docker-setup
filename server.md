@@ -77,24 +77,19 @@ IPアドレスを指定する．
 Settingsを開く  
 ![](imgs/network1.png)
 
-Networkを開く  
+NetworkからIPv4アドレスを設定する  
 ![](imgs/network2.png)
 
-IPv4アドレスを設定する  
-![](imgs/network3.png)
-
-- 記入例
-	- IP: 172.xxx.xxx.xxx
-	- Mask: 255.255.xxx.xxx
-	- Default GW: 172.xxx.xxx.xxx
-	- DNS: 172.xxx.xxx.xxx, 172.xxx.xxx.xxx
-
-ネットマスクやデフォルトゲートウェイ，DNSサーバは研究室や建物ごとに変わる場合があるので要確認．
+- Address: IPv4アドレス (管理者から指定されたもの, PC毎に異なる 例: 172.xxx.xxx.xxx)
+- Netmask: Addressに対応するマスク (研究室に割り当てられたアドレス範囲によって異なる 例: 255.255.xxx.xxx)
+- Gateway: Addressに対応するゲートウェイサーバアドレス(研究室に割り当てられたアドレス範囲によって異なる 例: 172.xxx.xxx.254)
+- DNS: DNSサーバアドレス (建物によって異なる)
 
 #### 基本ソフトウェアのインストール
 ターミナルを起動(`Ctrl+Alt+T`)し，以下のコマンドを入力  
-テキストエディタとしてgeditをインストールしている．  
-geditはGUIで起動するので，基本的には直接モニタを接続して使用する，  
+テキストエディタとしてgeditをインストールしているが，好みで変えて良い．  
+geditはGUIで起動するので，基本的には直接モニタを接続して使用する．   
+使える人はターミナル内でファイルを触れるVimやNano等に慣れておくと良い．
 
 ```bash
 sudo apt update
@@ -106,14 +101,8 @@ sudo reboot
 
 #### 日本語入力の設定
 
-Settings画面のRegion & Languageから  
+Settings画面のKeyboardからInput SourcesをMozcに設定する(`Japanese` -> `Japanese(Mozc)`)  
 ![](imgs/ja_input1.png)
-
-Input Sourcesの下の`+`マークをクリックして`Japanese` -> `Japanese(Mozc)`を選択  
-![](imgs/ja_input2.png)
-
-`Japanese(OADG 109A)`を横のゴミ箱ボタンで削除する．  
-![](imgs/ja_input3.png)
 
 #### NTPサーバの設定
 
@@ -132,10 +121,10 @@ sudo gedit /etc/ntp.conf
 # on 2011-02-08 (LP: #104525). See http://www.pool.ntp.org/join.html for
 # more information.
 # 以下，pool X.ubuntu.~ の行の戦闘に # をつけてコメントアウト
-#pool 0.ubuntu.pool.ntp.org iburst
-#pool 1.ubuntu.pool.ntp.org iburst
-#pool 2.ubuntu.pool.ntp.org iburst
-#pool 3.ubuntu.pool.ntp.org iburst
+# pool 0.ubuntu.pool.ntp.org iburst
+# pool 1.ubuntu.pool.ntp.org iburst
+# pool 2.ubuntu.pool.ntp.org iburst
+# pool 3.ubuntu.pool.ntp.org iburst
 # 立命館大学内のNTPサーバを設定に追加
 server ntp.ritsumei.ac.jp iburst
 ```
@@ -148,7 +137,11 @@ sudo service ntp restart
 ntpq -p
 ```
 
-時刻同期以降，SSHでリモートから接続して設定の続きを行ってもよい．
+設定完了時の表示例:  
+![](imgs/ntp1.png)  
+立命館大学のNTPサーバ(rundz1152.ritsu~)がリストに追加されている．
+
+これ以降，SSHでリモートから接続して設定の続きを行ってもよい．
 
 ## Dockerの設定
 
