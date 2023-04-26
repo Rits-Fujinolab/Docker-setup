@@ -7,7 +7,7 @@ Linux server のファイルを Windows explorer から叩けるようになる�
 sudo apt install -y samba
 ```
 ### smb.confの設定
-/etc/samba/smb.comf 内の[global]行以下に追記
+/etc/samba/smb.conf 内の[global]行以下に追記
 ```
 unix extensions = no
 wide links = yes
