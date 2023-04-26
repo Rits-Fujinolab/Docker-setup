@@ -28,7 +28,7 @@ Pass も同じにしておくと無難．
 sudo smbpasswd -a USERNAME
 ```
 ### smb.conf の設定
-/etc/samba/smb.comfの行末に追記する．   
+/etc/samba/smb.confの行末に追記する．   
 pathには共有したい場所を記入してください．   
 大体の人は /home/<Linuxのユーザ名>だと思います．(echo $HOME で確認できる)
 ```
